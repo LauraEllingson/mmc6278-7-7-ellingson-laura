@@ -22,15 +22,15 @@ CREATE TABLE users (
 CREATE TABLE cart (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   inventory_id INT NOT NULL,
--- add a user_id column that's an int
+  -- user_id column as an integer
   user_id INT NOT NULL,
   quantity INT NOT NULL DEFAULT 1,
   FOREIGN KEY (inventory_id)
     REFERENCES inventory (id)
+    ON DELETE CASCADE,
+  -- foreign key constraint for user_id
+  FOREIGN KEY (user_id)
+    REFERENCES users (id)
     ON DELETE CASCADE
--- add a foreign key constraint to user_id just like inventory_id
-FOREIGN KEY (user_id) 
-  REFERENCES users (id)
-   ON DELETE CASCADE,
 );
 

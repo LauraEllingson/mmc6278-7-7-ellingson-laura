@@ -119,9 +119,10 @@ router.post('/user', async (req, res) => {
 router.post('/login', async (req, res) => {
   const {username, password} = req.body
   // if the username or password is not provided, return a 400 status
-  if (!username || !password) return res.status(400).send('username and password required')
+  if (!username || !password) 
+  return res.status(400).send('username and password required')
   // Query the database by the username for the user
-  await db.query(
+  const [[user]] = await db.query(
     `SELECT * FROM users WHERE username = ?`,
     [username]
   );

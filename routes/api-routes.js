@@ -133,6 +133,7 @@ router.post('/login', async (req, res) => {
   const isCorrectPassword = await bcrypt.compare(password, user.password)
   // If the password is wrong, return a 400 status code
   if (!isCorrectPassword) return res.status(400).send('password incorrect')
+  res.json({...user, isCorrectPassword})
   // If the password matches, set req.session.loggedIn to true
   req.session.loggedIn = true;
   // set req.session.userId to the user's id
@@ -143,7 +144,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', async (req, res) => {
   // call req.session.destroy and in the callback redirect to /
-  req.sesssion.destroy(() => res.redirect('/'));
+  req.session.destroy(() => res.redirect('/'));
 });
 
 module.exports = router
